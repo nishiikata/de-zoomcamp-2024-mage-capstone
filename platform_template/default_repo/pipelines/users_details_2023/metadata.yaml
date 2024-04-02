@@ -1,0 +1,163 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_loaders/load_csv_dataset.py
+  downstream_blocks:
+  - clean_column_names
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_csv_dataset
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_csv_dataset
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/transformers/clean_column_names.py
+  downstream_blocks:
+  - export_to_gcs_as_pq
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: clean_column_names
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_csv_dataset
+  uuid: clean_column_names
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/export_to_gcs_as_pq.py
+  downstream_blocks:
+  - gcs_object_exists
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_to_gcs_as_pq
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - clean_column_names
+  uuid: export_to_gcs_as_pq
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/sensors/gcs_object_exists.py
+  downstream_blocks:
+  - load_from_gcs
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_object_exists
+  retry_config: null
+  status: executed
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - export_to_gcs_as_pq
+  uuid: gcs_object_exists
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_loaders/load_from_gcs.py
+  downstream_blocks:
+  - export_to_bq
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_from_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks:
+  - gcs_object_exists
+  uuid: load_from_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/export_to_bq.py
+  downstream_blocks:
+  - trigger_pipeline_exporter
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_to_bq
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - load_from_gcs
+  uuid: export_to_bq
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/trigger_pipeline_exporter.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trigger_pipeline_exporter
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - export_to_bq
+  uuid: trigger_pipeline_exporter
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-03-17 12:10:54.516627+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: users-details-2023
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags:
+- csv_to_bq
+type: python
+uuid: users_details_2023
+variables:
+  csv_path: /home/src/data/users-details-2023.csv
+  dataset: myanimelist_data
+  next_pipeline: users_score_2023
+  object_key: users-details-2023.parquet
+  table_name: users_details_2023
+variables_dir: /root/.mage_data/default_repo
+widgets: []

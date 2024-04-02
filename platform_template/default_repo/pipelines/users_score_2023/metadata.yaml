@@ -1,0 +1,144 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: blue
+  configuration:
+    file_source:
+      path: default_repo/custom/users_score_to_pq_local.py
+  downstream_blocks:
+  - local_file_exists
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: users_score_to_pq_local
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks: []
+  uuid: users_score_to_pq_local
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/sensors/local_file_exists.py
+  downstream_blocks:
+  - export_local_pq_to_gcs
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: local_file_exists
+  retry_config: null
+  status: executed
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - users_score_to_pq_local
+  uuid: local_file_exists
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/export_local_pq_to_gcs.py
+  downstream_blocks:
+  - gcs_object_exists
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: export_local_pq_to_gcs
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - local_file_exists
+  uuid: export_local_pq_to_gcs
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/sensors/gcs_object_exists.py
+  downstream_blocks:
+  - spark_from_gcs_to_bq
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_object_exists
+  retry_config: null
+  status: executed
+  timeout: null
+  type: sensor
+  upstream_blocks:
+  - export_local_pq_to_gcs
+  uuid: gcs_object_exists
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/spark_from_gcs_to_bq.py
+  downstream_blocks:
+  - trigger_pipeline_exporter
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: spark_from_gcs_to_bq
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - gcs_object_exists
+  uuid: spark_from_gcs_to_bq
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/trigger_pipeline_exporter.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trigger_pipeline_exporter
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - spark_from_gcs_to_bq
+  uuid: trigger_pipeline_exporter
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-03-17 12:16:13.260678+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: users-score-2023
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags:
+- csv_to_bq
+type: python
+uuid: users_score_2023
+variables:
+  csv_path: /home/src/data/users-score-2023.csv
+  dataset: myanimelist_data
+  next_pipeline: anime_categories_count
+  object_key: users-score-2023.parquet
+  table_name: users_score_2023
+variables_dir: /root/.mage_data/default_repo
+widgets: []

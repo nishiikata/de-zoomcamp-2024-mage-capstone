@@ -1,0 +1,4 @@
+kaggle
+mage-ai[google-cloud-storage]
+mage-ai[spark]
+pyspark[sql]

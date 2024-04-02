@@ -1,0 +1,84 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/sensors/bq_table_exists.py
+  downstream_blocks:
+  - anime_categories_to_bq
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: bq_table_exists
+  retry_config: null
+  status: executed
+  timeout: null
+  type: sensor
+  upstream_blocks: []
+  uuid: bq_table_exists
+- all_upstream_blocks_executed: true
+  color: yellow
+  configuration:
+    file_source:
+      path: default_repo/custom/anime_categories_to_bq.py
+  downstream_blocks:
+  - trigger_pipeline_exporter
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: anime_categories_to_bq
+  retry_config: null
+  status: executed
+  timeout: null
+  type: custom
+  upstream_blocks:
+  - bq_table_exists
+  uuid: anime_categories_to_bq
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: default_repo/data_exporters/trigger_pipeline_exporter.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: trigger_pipeline_exporter
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - anime_categories_to_bq
+  uuid: trigger_pipeline_exporter
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-03-31 07:17:07.555532+00:00'
+data_integration: null
+description: null
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: anime_categories_count
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: anime_categories_count
+variables:
+  dataset: myanimelist_data
+  next_pipeline: anime_average_ratings
+  table_name: anime_dataset_2023
+variables_dir: /root/.mage_data/default_repo
+widgets: []

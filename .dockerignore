@@ -1,0 +1,6 @@
+# Ignore the following folders in current directory
+.ivy2
+assets
+data
+mage_data
+terraform

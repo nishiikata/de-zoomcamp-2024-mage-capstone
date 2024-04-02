@@ -1,0 +1,25 @@
+# Project setup
+# Ref: https://docs.mage.ai/development/project/setup
+.DS_Store
+.file_versions
+.gitkeep
+.log
+.logs/
+.mage_temp_profiles
+.preferences.yaml
+.variables/
+__pycache__/
+docker-compose.override.yml
+logs/
+mage-ai.db
+mage_data/
+secrets/
+
+# Environments
+.env
+
+# Custom
+/*.json
+/.ivy2/
+/data/
+/lib/

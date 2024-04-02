@@ -1,0 +1,13 @@
+triggers:
+- envs: []
+  last_enabled_at: null
+  name: trigger_initial_pipeline
+  pipeline_uuid: initial_pipeline
+  schedule_interval: null
+  schedule_type: api
+  settings: null
+  sla: null
+  start_time: null
+  status: active
+  variables:
+    next_pipeline: anime_dataset_2023
