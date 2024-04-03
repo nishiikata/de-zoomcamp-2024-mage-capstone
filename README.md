@@ -93,7 +93,15 @@ git clone https://github.com/nishiikata/de-zoomcamp-2024-mage-capstone.git
 ### Starting the Mage Pipeline
 Only the `initial_pipeline` pipeline needs to be manually started. The remaining pipelines are set to be automatically triggered [from a block](https://docs.mage.ai/orchestration/triggers/trigger-pipeline). The `initial_pipeline` can be triggered through any of the following:
 - Using Mage UI ([Schedule](https://docs.mage.ai/design/core-abstractions#schedule) with *Run exactly once*)
-- Executing the provided `start_initial_pipeline` script.
+- Executing the provided `start_initial_pipeline.sh` script.
+> [!IMPORTANT]
+> The [jq](https://jqlang.github.io/jq/download/) command-line tool is required to use the `start_initial_pipeline.sh` script I wrote since processing JSON objects on a CLI without it is so painful otherwise 🙃😭. You can just run the `initial_pipeline` manually if you can't install jq on your machine.
+> 
+> On windows you can also install jq via winget (This is the method I used on my personal windows machine.)
+> ```powershell
+> winget install --id=jqlang.jq  -e
+> ```
+> For other operating systems such as Linux and MacOS and many more .etc, you can just use the official [download page](https://jqlang.github.io/jq/download/).
 
 ### Run Mage in Cloud VM
 Refer to Mage AI documentation for instructions on how to deploy a Mage AI instance to cloud virtual machines such as [GCP Cloud Run](https://docs.mage.ai/production/deploying-to-cloud/gcp/setup).
